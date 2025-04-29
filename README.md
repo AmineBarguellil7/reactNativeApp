@@ -1,50 +1,51 @@
-# Welcome to your Expo app 👋
+# reactNativeApp
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This mobile application, built with React Native and Expo, offers two primary features: a Shopping List Manager and a Car Wash Countdown Timer with notification reminders.
 
-## Get started
+Shopping List Manager:
 
-1. Install dependencies
+- Users can add, delete, and mark items as completed in a shopping list.
 
-   ```bash
-   npm install
-   ```
+- Items are sorted intelligently: active items are shown first, followed by completed ones based on the time of update.
 
-2. Start the app
+- The app persists the shopping list locally using AsyncStorage, ensuring that the data remains even if the app is closed or restarted.
 
-   ```bash
-    npx expo start
-   ```
+- The UI emphasizes usability with clear item statuses (checked/unchecked) and deletion confirmation dialogs.
 
-In the output, you'll find options to open the app in a
+Car Wash Countdown Timer:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- A separate section lets users start a countdown for their next car wash, with a default frequency of once every hour (for demo purposes; easily adjustable).
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- A push notification is scheduled to remind users when it's time to wash their car, leveraging Expo Notifications.
 
-## Get a fresh project
+- If a new countdown is started, the previous scheduled notification is canceled and replaced.
 
-When you're ready, run:
+- The app provides real-time countdown updates (days, hours, minutes, seconds) and visually indicates when the car wash is overdue by changing the background color.
 
-```bash
-npm run reset-project
-```
+- Haptic feedback enhances the user experience when scheduling a new countdown.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Countdown History:
 
-## Learn more
+- A history screen lists all previous car wash completions, formatted with human-readable timestamps.
 
-To learn more about developing your project with Expo, look at the following resources:
+- This list is also persisted locally and displayed using a clean FlatList component.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Navigation:
 
-## Join the community
+- The app uses expo-router with a combination of Tabs and Stack Navigation.
 
-Join our community of developers creating universal apps.
+- There are two main tabs: Shopping List and Counter.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Inside the Counter tab, there's a nested navigation flow: the main Counter Screen and a linked History Screen.
+
+- A header button (history icon) is available in the Counter screen to quickly access the history.
+
+Push Notifications:
+
+- Proper permissions are handled with Expo's permission request flow.
+
+- For Android, a high-importance notification channel is set up to ensure notifications are seen immediately with popups and sound.
+
+Storage Handling:
+
+- All persistent data (shopping list and countdown state) is saved and retrieved using simple utility functions wrapping AsyncStorage, ensuring safe and clean storage access.
